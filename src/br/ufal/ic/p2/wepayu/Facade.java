@@ -3,7 +3,7 @@ package br.ufal.ic.p2.wepayu;
 public class Facade {
     private Sistema sistema = Sistema.carregar();
 
-    public void zerarSistema() {
+    public void zerarSistema() throws Exception {
         sistema.zerarSistema();
     }
 
@@ -51,8 +51,16 @@ public class Facade {
         sistema.alteraEmpregado(emp, atributo, valor);
     }
 
+    public void alteraEmpregado(String emp, String atributo, String valor, String arg4) throws Exception {
+        sistema.alteraEmpregado(emp, atributo, valor, arg4);
+    }
+
     public void alteraEmpregado(String emp, String atributo, String valor, String idSindicato, String taxaSindical) throws Exception {
         sistema.alteraEmpregado(emp, atributo, valor, idSindicato, taxaSindical);
+    }
+
+    public void alteraEmpregado(String emp, String atributo, String valor, String banco, String agencia, String contaCorrente) throws Exception {
+        sistema.alteraEmpregado(emp, atributo, valor, banco, agencia, contaCorrente);
     }
 
     public void lancaTaxaServico(String membro, String data, String valor) throws Exception {
@@ -63,7 +71,27 @@ public class Facade {
         return sistema.getTaxasServico(emp, dataInicial, dataFinal);
     }
 
+    public String totalFolha(String data) throws Exception {
+        return sistema.totalFolha(data);
+    }
+
+    public void rodaFolha(String data, String saida) throws Exception {
+        sistema.rodaFolha(data, saida);
+    }
+
+    public int getNumeroDeEmpregados() {
+        return sistema.getNumeroDeEmpregados();
+    }
+
+    public void undo() throws Exception {
+        sistema.undo();
+    }
+
+    public void redo() throws Exception {
+        sistema.redo();
+    }
+
     public void encerrarSistema() throws Exception {
-        Sistema.salvar(sistema);
+        sistema.encerrarSistema();
     }
 }

@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>WePayU - Documentação Técnica do Sistema</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 20mm 15mm 20mm 15mm;
+            @bottom-right {
+                content: counter(page);
+            }
+        }
+        body {
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif;
+            color: #2d3748;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            font-size: 11pt;
+            background: #ffffff;
+        }
+        .cover {
+            text-align: center;
+            padding-top: 80px;
+            padding-bottom: 80px;
+            page-break-after: always;
+        }
+        .cover h1 {
+            font-size: 32pt;
+            color: #1a365d;
+            margin-bottom: 10px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+        .cover .subtitle {
+            font-size: 16pt;
+            color: #4a5568;
+            margin-bottom: 30px;
+            font-weight: 400;
+        }
+        .cover .tagline {
+            font-size: 12pt;
+            color: #718096;
+            max-width: 600px;
+            margin: 0 auto 50px auto;
+            border-top: 2px solid #e2e8f0;
+            border-bottom: 2px solid #e2e8f0;
+            padding: 15px 0;
+        }
+        .cover .meta {
+            margin-top: 80px;
+            font-size: 11pt;
+            color: #4a5568;
+        }
+        .cover .meta strong {
+            color: #1a202c;
+        }
+        h1, h2, h3, h4 {
+            color: #1a365d;
+            font-weight: 700;
+            page-break-after: avoid;
+        }
+        h1 {
+            font-size: 20pt;
+            border-bottom: 2px solid #3182ce;
+            padding-bottom: 6px;
+            margin-top: 30px;
+            margin-bottom: 16px;
+        }
+        h2 {
+            font-size: 15pt;
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 4px;
+            margin-top: 24px;
+            margin-bottom: 12px;
+            color: #2b6cb0;
+        }
+        h3 {
+            font-size: 12pt;
+            margin-top: 18px;
+            margin-bottom: 8px;
+            color: #2d3748;
+        }
+        p {
+            margin: 0 0 10px 0;
+            text-align: justify;
+        }
+        ul, ol {
+            margin: 0 0 14px 20px;
+            padding: 0;
+        }
+        li {
+            margin-bottom: 5px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 14px 0 20px 0;
+            font-size: 10pt;
+            page-break-inside: avoid;
+        }
+        table th, table td {
+            border: 1px solid #cbd5e0;
+            padding: 8px 10px;
+            text-align: left;
+        }
+        table th {
+            background-color: #ebf8ff;
+            color: #2b6cb0;
+            font-weight: 700;
+        }
+        table tr:nth-child(even) td {
+            background-color: #f7fafc;
+        }
+        code {
+            font-family: 'Consolas', 'Courier New', monospace;
+            background-color: #edf2f7;
+            padding: 2px 5px;
+            border-radius: 4px;
+            font-size: 9.5pt;
+            color: #805ad5;
+        }
+        .method-card {
+            border: 1px solid #e2e8f0;
+            border-left: 4px solid #3182ce;
+            border-radius: 4px;
+            padding: 12px 14px;
+            margin-bottom: 14px;
+            background-color: #fcfdfe;
+            page-break-inside: avoid;
+        }
+        .method-signature {
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 10.5pt;
+            font-weight: bold;
+            color: #2c5282;
+            background: #ebf8ff;
+            padding: 6px 10px;
+            border-radius: 4px;
+            display: inline-block;
+            margin-bottom: 8px;
+        }
+        .method-desc {
+            margin: 6px 0;
+            font-size: 10.5pt;
+        }
+        .param-list {
+            margin-top: 6px;
+            font-size: 9.5pt;
+        }
+        .param-list dt {
+            font-weight: bold;
+            color: #4a5568;
+            display: inline;
+        }
+        .param-list dd {
+            display: inline;
+            margin-left: 5px;
+            margin-right: 15px;
+        }
+        .alert {
+            padding: 12px 16px;
+            margin: 15px 0;
+            border-radius: 4px;
+            font-size: 10pt;
+            page-break-inside: avoid;
+        }
+        .alert-info {
+            background-color: #ebf8ff;
+            border-left: 4px solid #3182ce;
+            color: #2b6cb0;
+        }
+        .alert-warning {
+            background-color: #fffaf0;
+            border-left: 4px solid #dd6b20;
+            color: #c05621;
+        }
+        .page-break {
+            page-break-after: always;
+        }
+        .toc {
+            background: #f7fafc;
+            border: 1px solid #e2e8f0;
+            padding: 15px 20px;
+            border-radius: 6px;
+            margin-bottom: 25px;
+        }
+        .toc ul {
+            list-style-type: none;
+            margin-left: 0;
+        }
+        .toc li {
+            margin-bottom: 6px;
+        }
+        .toc a {
+            text-decoration: none;
+            color: #2b6cb0;
+            font-weight: 600;
+        }
+        .badge {
+            display: inline-block;
+            padding: 2px 7px;
+            font-size: 8.5pt;
+            font-weight: 700;
+            border-radius: 10px;
+            text-transform: uppercase;
+        }
+        .badge-model { background: #e2e8f0; color: #4a5568; }
+        .badge-core { background: #bee3f8; color: #2b6cb0; }
+        .badge-facade { background: #feebc8; color: #c05621; }
+    </style>
+</head>
+<body>
+
+<!-- CAPA -->
+<div class="cover">
+    <h1>WePayU</h1>
+    <div class="subtitle">Sistema de Gerenciamento de Folha de Pagamento</div>
+    <div class="tagline">
+        Documentação Técnica Abrangente da Arquitetura, Classes, Métodos e Regras de Negócio<br>
+        <strong>1º Milestone (User Stories 1 a 8)</strong>
+    </div>
+
+    <div class="meta">
+        <p><strong>Disciplina:</strong> Programação 2 (P2)</p>
+        <p><strong>Instituição:</strong> Universidade Federal de Alagoas (UFAL)</p>
+        <p><strong>Linguagem:</strong> Java (JDK 25 / compatível com Java 17+)</p>
+        <p><strong>Testes de Aceitação:</strong> EasyAccept (100% de Aprovação em 590 Testes)</p>
+        <p><strong>Data de Emissão:</strong> 2026</p>
+    </div>
+</div>
+
+<!-- SUMÁRIO -->
+<h1>Sumário</h1>
+<div class="toc">
+    <ul>
+        <li><strong>1. Visão Geral do Sistema</strong> — Objetivos, funcionalidades e regras gerais</li>
+        <li><strong>2. Arquitetura de Software e Padrões de Projeto</strong> — Separação de camadas, Façade e Memento</li>
+        <li><strong>3. Resumo das User Stories Implementadas (US1 a US8)</strong> — Visão funcional</li>
+        <li><strong>4. Documentação das Classes e Métodos</strong>
+            <ul>
+                <li>4.1. Camada de Fachada: <code>Facade.java</code></li>
+                <li>4.2. Núcleo de Regras de Negócio: <code>Sistema.java</code></li>
+                <li>4.3. Motor de Cálculo e Relatórios: <code>FolhaDePagamento.java</code></li>
+                <li>4.4. Modelo de Domínio: <code>Empregado</code> e Especializações</li>
+                <li>4.5. Registros Auxiliares: <code>point_card_pay_u</code>, <code>ResultadoVenda</code>, <code>TaxaServico</code></li>
+                <li>4.6. Tratamento de Exceções: <code>EmpregadoNaoExisteException</code></li>
+            </ul>
+        </li>
+        <li><strong>5. Ciclo de Vida de Execução, Undo/Redo e Persistência</strong></li>
+        <li><strong>6. Guia de Compilação e Execução dos Testes</strong></li>
+    </ul>
+</div>
+
+<div class="page-break"></div>
+
+<!-- SEÇÃO 1 -->
+<h1>1. Visão Geral do Sistema</h1>
+<p>
+    O <strong>WePayU</strong> é um sistema corporativo completo voltado à gestão e processamento da folha de pagamento de empregados de uma organização. O software provê um conjunto robusto de operações para cadastro de colaboradores, lançamento de jornadas de trabalho, vendas comissionadas, gerenciamento de contribuições sindicais, emissão detalhada de contracheques periódicos e um histórico transacional completo que permite operações de reversão (<strong>Undo</strong>) e reaplicação (<strong>Redo</strong>).
+</p>
+
+<h2>1.1. Categorias de Empregados Atendidas</h2>
+<ul>
+    <li><strong>Horistas (<code>EmpregadoHorista</code>):</strong> Recebem remuneração calculada estritamente pelas horas trabalhadas, registradas em cartões de ponto diários. A jornada padrão diária é de até 8 horas normais; horas trabalhadas além desse limite são bonificadas com taxa adicional de 50% (fator 1.5x). A folha é rodada semanalmente (toda sexta-feira).</li>
+    <li><strong>Assalariados (<code>EmpregadoAssalariado</code>):</strong> Recebem um valor salarial mensal fixo contratual. O pagamento ocorre no último dia útil de cada mês.</li>
+    <li><strong>Comissionados (<code>EmpregadoComissionado</code>):</strong> Subtipo de empregado assalariado que recebe um salário base fixo mensal (calculado proporcionalmente às semanas do período) somado a uma comissão percentual aplicada sobre o valor bruto das vendas comprovadas. O pagamento ocorre a cada duas sextas-feiras.</li>
+</ul>
+
+<h2>1.2. Canais de Pagamento</h2>
+<p>Cada empregado define livremente como deseja receber sua remuneração:</p>
+<ul>
+    <li><code>emMaos</code>: Pagamento em dinheiro/cheque entregue em mãos (padrão do sistema).</li>
+    <li><code>correios</code>: Envio de cheque nominal via correio para o endereço cadastrado.</li>
+    <li><code>banco</code>: Depósito bancário direto, exigindo nome do banco, agência e conta corrente.</li>
+</ul>
+
+<h2>1.3. Afiliação Sindical e Deduções</h2>
+<p>
+    Empregados podem optar por filiar-se ao sindicato da categoria. Ao sindicalizar-se, é gerado um identificador sindical exclusivo (independente da matrícula interna na empresa), uma taxa fixa periódica e a possibilidade de cobrança de taxas de serviços adicionais (creche, assistência médica, jurídica, etc.).
+</p>
+<p>
+    No processamento da folha, todas as taxas e débitos sindicais são deduzidos do salário bruto. Caso as deduções superem o salário líquido, o valor excedente é mantido como débito pendente para desconto na próxima folha.
+</p>
+
+<div class="page-break"></div>
+
+<!-- SEÇÃO 2 -->
+<h1>2. Arquitetura de Software e Padrões de Projeto</h1>
+<p>
+    O sistema foi concebido sob princípios de baixo acoplamento, alta coesão e separação rigorosa entre a interface de comunicação externa e a lógica de domínio interna.
+</p>
+
+<h2>2.1. Padrão Façade (Fachada)</h2>
+<p>
+    A classe <code>Facade</code> atua como ponto único de entrada para todas as operações do sistema. O framework de testes de aceitação (<strong>EasyAccept</strong>) interage exclusivamente com a fachada, sem acessar coleções ou classes de negócio diretamente. A fachada é responsável por delegar as chamadas para a instância ativa de <code>Sistema</code>, garantindo uma barreira arquitetural limpa.
+</p>
+
+<h2>2.2. Padrão Memento com Snapshots em Memória (Undo / Redo)</h2>
+<p>
+    Para atender aos requisitos rigorosos da US8, o sistema adota o padrão <strong>Memento</strong>. Toda e qualquer operação que altere o estado do sistema (criação, remoção, alteração de empregados, lançamentos de cartões, taxas, vendas ou execução da folha) é interceptada:
+</p>
+<ul>
+    <li>Um snapshot completo e isolado do estado do sistema é serializado em memória na forma de array de bytes (<code>byte[]</code>).</li>
+    <li>A ação modificadora é executada. Se ocorrer sucesso, o snapshot do estado anterior é empilhado na <code>undoStack</code> e a <code>redoStack</code> é esvaziada.</li>
+    <li>Se a ação lançar qualquer exceção (ex: validação de data, valor negativo, etc.), o sistema restaura imediatamente o snapshot anterior (<strong>Rollback</strong>), impedindo estados intermediários corrompidos e sem poluir o histórico.</li>
+    <li>Ao invocar <code>undo()</code>, o estado atual vai para a <code>redoStack</code> e o topo da <code>undoStack</code> é restaurado. Ao invocar <code>redo()</code>, o processo inverso ocorre.</li>
+</ul>
+
+<h2>2.3. Herança e Polimorfismo</h2>
+<p>
+    A hierarquia de domínio possui <code>Empregado</code> como classe abstrata raiz, provendo reuso de atributos comuns (identificação, dados sindicais e bancários) e comportamento polimórfico especializado para <code>EmpregadoHorista</code>, <code>EmpregadoAssalariado</code> e <code>EmpregadoComissionado</code>. Conforme exigido pela especificação oficial do projeto, o uso consciente de <code>instanceof</code> permite discriminar o tipo de contrato sem violar o encapsulamento.
+</p>
+
+<div class="page-break"></div>
+
+<!-- SEÇÃO 3 -->
+<h1>3. Resumo das User Stories Implementadas</h1>
+<table>
+    <thead>
+        <tr>
+            <th style="width: 12%;">História</th>
+            <th style="width: 28%;">Título</th>
+            <th>Descrição e Responsabilidade Principal</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><strong>US1 / US1_1</strong></td>
+            <td>Criação de Empregado</td>
+            <td>Inclusão de empregados horistas, assalariados e comissionados. Geração de ID único, validações de campos obrigatórios e formato numérico. Persistência em disco testada em US1_1.</td>
+        </tr>
+        <tr>
+            <td><strong>US2 / US2_1</strong></td>
+            <td>Remoção de Empregado</td>
+            <td>Exclusão de colaboradores cadastrados via ID. Validação de existência do ID informado.</td>
+        </tr>
+        <tr>
+            <td><strong>US3 / US3_1</strong></td>
+            <td>Cartão de Ponto</td>
+            <td>Lançamento de horas diárias trabalhadas para horistas via classe <code>point_card_pay_u</code>. Consulta de horas normais (até 8h) e horas extras em intervalos de datas [dataInicial, dataFinal).</td>
+        </tr>
+        <tr>
+            <td><strong>US4 / US4_1</strong></td>
+            <td>Lançamento de Venda</td>
+            <td>Registro de comprovantes de vendas (<code>ResultadoVenda</code>) para comissionados. Consulta de vendas efetuadas em período de datas.</td>
+        </tr>
+        <tr>
+            <td><strong>US5 / US5_1</strong></td>
+            <td>Taxas de Serviço Sindicais</td>
+            <td>Lançamento de débitos de serviços prestados pelo sindicato via ID de membro sindical (<code>TaxaServico</code>). Consulta agregada de taxas no período.</td>
+        </tr>
+        <tr>
+            <td><strong>US6 / US6_1</strong></td>
+            <td>Alteração de Empregado</td>
+            <td>Atualização cadastral completa: nome, endereço, troca dinâmica de tipo de contrato com preservação de histórico, dados sindicais e dados de contas bancárias.</td>
+        </tr>
+        <tr>
+            <td><strong>US7</strong></td>
+            <td>Rodar Folha de Pagamento</td>
+            <td>Cálculo financeiro consolidado dos pagamentos devidos na data informada, apuração de horas, comissões, deduções de taxas sindicais, débitos acumulados e geração de relatório tabular formatado idêntico às especificações oficiais.</td>
+        </tr>
+        <tr>
+            <td><strong>US8</strong></td>
+            <td>Undo / Redo</td>
+            <td>Capacidade de desfazer e refazer qualquer comando modificador executado desde o início da sessão. Isolamento transacional com rollback automático diante de erros.</td>
+        </tr>
+    </tbody>
+</table>
+
+<div class="page-break"></div>
+
+<!-- SEÇÃO 4 -->
+<h1>4. Documentação das Classes e Métodos</h1>
+
+<h2>4.1. Classe <code>Facade</code></h2>
+<p><span class="badge badge-facade">Camada de Fachada</span> <code>br.ufal.ic.p2.wepayu.Facade</code></p>
+<p>
+    Responsável por expor a interface oficial do sistema para os scripts do EasyAccept. Não contém regras de negócio; carrega a instância serializada de <code>Sistema</code> e repassa as chamadas de forma transparente.
+</p>
+
+<div class="method-card">
+    <div class="method-signature">public void zerarSistema() throws Exception</div>
+    <div class="method-desc">Limpa todos os registros do sistema (empregados, histórico de folhas), permitindo que a ação seja desfeita posteriormente via <code>undo()</code>.</div>
+</div>
+
+<div class="method-card">
+    <div class="method-signature">public String criarEmpregado(String nome, String endereco, String tipo, String salario) throws Exception</div>
+    <div class="method-desc">Cria um novo empregado horista ou assalariado.</div>
+    <div class="param-list">
+        <dt>Parâmetros:</dt>
+        <dd><code>nome</code> - Nome completo</dd>
+        <dd><code>endereco</code> - Endereço residencial</dd>
+        <dd><code>tipo</code> - "horista" ou "assalariado"</dd>
+        <dd><code>salario</code> - Valor numérico positivo (por hora ou mensal)</dd>
+        <br><dt>Retorno:</dt><dd>Identificador único (UUID) do empregado gerado</dd>
+        <br><dt>Exceções:</dt><dd>Validações de campos nulos, vazios, não-numéricos, negativos ou tipo inválido.</dd>
+    </div>
+</div>
+
+<div class="method-card">
+    <div class="method-signature">public String criarEmpregado(String nome, String endereco, String tipo, String salario, String comissao) throws Exception</div>
+    <div class="method-desc">Cria um empregado do tipo comissionado com salário mensal e taxa percentual de comissão.</div>
+    <div class="param-list">
+        <dt>Parâmetros:</dt>
+        <dd><code>comissao</code> - Taxa numérica não-negativa sobre as vendas</dd>
+        <dt>Retorno:</dt><dd>Identificador único do empregado gerado</dd>
+    </div>
+</div>
+
+<div class="method-card">
+    <div class="method-signature">public String getAtributoEmpregado(String emp, String atributo) throws Exception</div>
+    <div class="method-desc">Recupera o valor formatado de qualquer atributo do empregado (nome, endereco, tipo, salario, comissao, sindicalizado, idSindicato, taxaSindical, metodoPagamento, banco, agencia, contaCorrente).</div>
+</div>
+
+<div class="method-card">
+    <div class="method-signature">public String getEmpregadoPorNome(String nome, int indice) throws Exception</div>
+    <div class="method-desc">Retorna o ID do <em>n</em>-ésimo empregado cujo nome seja exatamente igual ao fornecido (índice 1-based).</div>
+</div>
+
+<div class="method-card">
+    <div class="method-signature">public void removerEmpregado(String emp) throws Exception</div>
+    <div class="method-desc">Remove do cadastro o empregado correspondente ao ID informado. Operação reversível por <code>undo()</code>.</div>
+</div>
+
+<div class="method-card">
+    <div class="method-signature">public void lancaCartao(String emp, String data, String horas) throws Exception</div>
+    <div class="method-desc">Registra uma jornada de trabalho no dia para o empregado horista informado.</div>
+</div>
+
+<div class="method-card">
+    <div class="method-signature">public String getHorasNormaisTrabalhadas(String emp, String dataInicial, String dataFinal) throws Exception</div>
+    <div class="method-desc">Soma as horas normais (até 8h/dia) no intervalo [dataInicial, dataFinal) para o empregado horista.</div>
+</div>
+
+<div class="method-card">
+    <div class="method-signature">public String getHorasExtrasTrabalhadas(String emp, String dataInicial, String dataFinal) throws Exception</div>
+    <div class="method-desc">Soma as horas extras (excedentes a 8h/dia) no intervalo [dataInicial, dataFinal) para o empregado horista.</div>
+</div>
+
+<div class="method-card">
+    <div class="method-signature">public void lancaVenda(String emp, String data, String valor) throws Exception</div>
+    <div class="method-desc">Lança o comprovante de uma venda efetuada para um empregado comissionado.</div>
+</div>
+
+<div class="method-card">
+    <div class="method-signature">public String getVendasRealizadas(String emp, String dataInicial, String dataFinal) throws Exception</div>
+    <div class="method-desc">Soma o total monetário das vendas registradas para o empregado comissionado no intervalo especificado.</div>
+</div>
+
+<div class="method-card">
+    <div class="method-signature">public void alteraEmpregado(String emp, String atributo, String valor) throws Exception</div>
+    <div class="method-desc">Altera atributos simples (nome, endereco, salario, comissao, sindicalizado=false, metodoPagamento=correios|emMaos) ou tipo para horista/assalariado.</div>
+</div>
+
+<div class="method-card">
+    <div class="method-signature">public void alteraEmpregado(String emp, String atributo, String valor, String arg4) throws Exception</div>
+    <div class="method-desc">Altera o tipo do empregado para comissionado (informando a comissão em arg4) ou horista (informando o novo salário horário em arg4).</div>
+</div>
+
+<div class="method-card">
+    <div class="method-signature">public void alteraEmpregado(String emp, String atributo, String valor, String idSindicato, String taxaSindical) throws Exception</div>
+    <div class="method-desc">Altera o status sindical do empregado para true, registrando a identificação sindical única e o valor da taxa periódica.</div>
+</div>
+
+<div class="method-card">
+    <div class="method-signature">public void alteraEmpregado(String emp, String atributo, String valor, String banco, String agencia, String contaCorrente) throws Exception</div>
+    <div class="method-desc">Altera o método de pagamento para "banco", registrando o nome do banco, número da agência e conta corrente.</div>
+</div>
+
+<div class="method-card">
+    <div class="method-signature">public void lancaTaxaServico(String membro, String data, String valor) throws Exception</div>
+    <div class="method-desc">Registra uma taxa de serviço cobrada pelo sindicato a partir da matrícula sindical do associado.</div>
+</div>
+
+<div class="method-card">
+    <div class="method-signature">public String getTaxasServico(String emp, String dataInicial, String dataFinal) throws Exception</div>
+    <div class="method-desc">Soma as taxas de serviço cobradas do empregado no intervalo especificado.</div>
+</div>
+
+<div class="method-card">
+    <div class="method-signature">public String totalFolha(String data) throws Exception</div>
+    <div class="method-desc">Calcula e retorna o montante total líquido da folha de pagamento na data especificada, sem aplicar descontos definitivos nem alterar o estado dos empregados.</div>
+</div>
+
+<div class="method-card">
+    <div class="method-signature">public void rodaFolha(String data, String saida) throws Exception</div>
+    <div class="method-desc">Executa o fechamento oficial da folha de pagamento para a data, aplicando as deduções aos empregados, gravando o relatório formatado no arquivo de saída indicado e registrando o estado na pilha de <code>undo</code>.</div>
+</div>
+
+<div class="method-card">
+    <div class="method-signature">public int getNumeroDeEmpregados()</div>
+    <div class="method-desc">Retorna o número total de empregados atualmente cadastrados no sistema.</div>
+</div>
+
+<div class="method-card">
+    <div class="method-signature">public void undo() throws Exception</div>
+    <div class="method-desc">Desfaz o último comando modificador realizado. Lança <code>"Nao ha comando a desfazer."</code> caso a pilha esteja vazia.</div>
+</div>
+
+<div class="method-card">
+    <div class="method-signature">public void redo() throws Exception</div>
+    <div class="method-desc">Refaz a última operação desfeita. Lança <code>"Nao ha comando a refazer."</code> caso não haja comandos para refazer.</div>
+</div>
+
+<div class="method-card">
+    <div class="method-signature">public void encerrarSistema() throws Exception</div>
+    <div class="method-desc">Marca o sistema como encerrado e salva o estado em disco no arquivo <code>sistema.dat</code>. Impede comandos subsequentes na sessão atual.</div>
+</div>
+
+<div class="page-break"></div>
+
+<!-- SEÇÃO 4.2 -->
+<h2>4.2. Classe <code>Sistema</code></h2>
+<p><span class="badge badge-core">Núcleo de Negócio</span> <code>br.ufal.ic.p2.wepayu.Sistema</code></p>
+<p>
+    Implementa <code>Serializable</code>. Contém o mapa central de empregados (<code>Map&lt;String, Empregado&gt; empregados</code>), o cache de folhas geradas (<code>folhaGeradaPorData</code>) e o controle transacional de snapshots.
+</p>
+
+<h3>Atributos e Gestão de Estado</h3>
+<ul>
+    <li><code>empregados</code>: <code>LinkedHashMap</code> mantendo a ordem de inserção dos empregados.</li>
+    <li><code>undoStack</code>: Pilha transitória (<code>transient Stack&lt;byte[]&gt;</code>) contendo snapshots dos estados anteriores.</li>
+    <li><code>redoStack</code>: Pilha transitória (<code>transient Stack&lt;byte[]&gt;</code>) contendo snapshots para refazer.</li>
+    <li><code>sistemaEncerrado</code>: Flag booleana transitória que indica se <code>encerrarSistema()</code> foi invocado.</li>
+</ul>
+
+<h3>Métodos de Controle Transacional Interno</h3>
+<ul>
+    <li><code>executarComandoModificador(ComandoSemRetorno cmd)</code>: Executa ações que não retornam valor sob garantia transacional. Se ocorrer erro, desfaz alterações em memória via <code>restaurarEstado</code>.</li>
+    <li><code>executarComandoModificadorComRetorno(ComandoComRetorno&lt;T&gt; cmd)</code>: Versão genérica que executa comandos com retorno (como criação de empregado que devolve o ID).</li>
+    <li><code>clonarEstado()</code>: Serializa o objeto <code>EstadoSistema</code> em um array de bytes isolado.</li>
+    <li><code>restaurarEstado(byte[] bytes)</code>: Deserializa o array de bytes e substitui integralmente os dados em memória.</li>
+    <li><code>salvar(Sistema s)</code> e <code>carregar()</code>: Persistem e recuperam o estado do sistema no arquivo <code>sistema.dat</code>.</li>
+</ul>
+
+<div class="page-break"></div>
+
+<!-- SEÇÃO 4.3 -->
+<h2>4.3. Classe <code>FolhaDePagamento</code></h2>
+<p><span class="badge badge-core">Processamento Financeiro</span> <code>br.ufal.ic.p2.wepayu.FolhaDePagamento</code></p>
+<p>
+    Concentra a lógica matemática, financeira e de formatação tabular dos pagamentos. Produz saídas com alinhamento rigoroso de colunas, totalizadores por categoria e total geral.
+</p>
+
+<div class="method-card">
+    <div class="method-signature">public static ResultadoFolha calcular(Map&lt;String, Empregado&gt; empregados, LocalDate data, boolean aplicarDeducoes)</div>
+    <div class="method-desc">
+        Percorre todos os empregados do sistema e verifica quem tem direito a pagamento na data especificada:
+        <ul>
+            <li><strong>Horistas:</strong> Pagos em sextas-feiras. O período de cálculo compreende desde o sábado anterior até a sexta-feira do pagamento (7 dias). Horas &le; 8 são pagas pelo salário horário regular; horas > 8 recebem multiplicador de 1.5x (hora extra).</li>
+            <li><strong>Assalariados:</strong> Pagos no último dia útil do mês (se o último dia cair em sábado, paga-se na sexta-feira dia 30; se domingo, na sexta-feira dia 29). Recebem o salário integral mensal contratado.</li>
+            <li><strong>Comissionados:</strong> Pagos em sextas-feiras a cada 2 semanas. Recebem o salário fixo quinzenal ((salarioMensal &times; 12 / 52) &times; 2) acrescido do percentual de comissão sobre todas as vendas realizadas nas últimas duas semanas.</li>
+            <li><strong>Deduções Sindicais:</strong> Para cada membro sindicalizado, calcula a taxa sindical periódica proporcional somada às taxas de serviço acumuladas no período e eventuais débitos sindicais anteriores. Se <code>aplicarDeducoes</code> for verdadeiro, o débito do empregado é atualizado para o ciclo seguinte.</li>
+        </ul>
+    </div>
+</div>
+
+<div class="page-break"></div>
+
+<!-- SEÇÃO 4.4 -->
+<h2>4.4. Modelo de Domínio (Entidades de Empregado)</h2>
+<p><span class="badge badge-model">Modelos</span> Pacote <code>br.ufal.ic.p2.wepayu.models</code></p>
+
+<h3><code>Empregado.java</code> (Classe Abstrata)</h3>
+<p>
+    Superclasse de todos os colaboradores. Encapsula:
+</p>
+<ul>
+    <li>Identificação única (<code>id</code>), nome completo e endereço.</li>
+    <li>Tipo de contrato (<code>"horista"</code>, <code>"assalariado"</code>, <code>"comissionado"</code>).</li>
+    <li>Status sindical (<code>sindicalizado</code>), matrícula sindical (<code>idSindicato</code>), taxa mensal (<code>taxaSindical</code>) e lista de taxas de serviço adicionais (<code>taxasServico</code>).</li>
+    <li>Saldo devedor sindical não quitado em folhas anteriores (<code>debitoSindicato</code>).</li>
+    <li>Método de pagamento (<code>metodoPagamento</code>), banco, agência e conta corrente.</li>
+</ul>
+
+<h3><code>EmpregadoHorista.java</code></h3>
+<p>
+    Estende <code>Empregado</code>. Adiciona:
+</p>
+<ul>
+    <li><code>salarioHorario</code>: Valor em reais por hora de trabalho.</li>
+    <li><code>cartoes</code>: Coleção de instâncias de <code>point_card_pay_u</code> submetidas pelo colaborador.</li>
+    <li>Métodos: <code>adicionarCartao(point_card_pay_u cartao)</code> e <code>getCartoes()</code>.</li>
+</ul>
+
+<h3><code>EmpregadoAssalariado.java</code></h3>
+<p>
+    Estende <code>Empregado</code>. Adiciona:
+</p>
+<ul>
+    <li><code>salarioMensal</code>: Remuneração fixa mensal estipulada em contrato.</li>
+</ul>
+
+<h3><code>EmpregadoComissionado.java</code></h3>
+<p>
+    Estende <code>EmpregadoAssalariado</code>. Adiciona:
+</p>
+<ul>
+    <li><code>comissao</code>: Taxa percentual (ex: "0,05" para 5%) aplicada sobre as vendas brutas realizadas.</li>
+    <li><code>vendas</code>: Coleção de comprovantes de vendas (<code>ResultadoVenda</code>).</li>
+    <li>Métodos: <code>adicionarVenda(ResultadoVenda venda)</code> e <code>getVendas()</code>.</li>
+</ul>
+
+<div class="page-break"></div>
+
+<!-- SEÇÃO 4.5 e 4.6 -->
+<h2>4.5. Registros Auxiliares</h2>
+
+<div class="method-card">
+    <div class="method-signature">public class point_card_pay_u implements Serializable</div>
+    <div class="method-desc">
+        Representa a folha de ponto diária de um horista.
+        <ul>
+            <li><code>LocalDate getData()</code>: Data da jornada.</li>
+            <li><code>double getHoras()</code>: Total de horas trabalhadas no dia.</li>
+            <li><code>double getHorasNormais()</code>: Retorna o total de horas diárias até o limite de 8 horas (min(horas, 8.0)).</li>
+            <li><code>double getHorasExtras()</code>: Retorna as horas excedentes a 8 horas diárias (max(0.0, horas - 8.0)).</li>
+        </ul>
+    </div>
+</div>
+
+<div class="method-card">
+    <div class="method-signature">public class ResultadoVenda implements Serializable</div>
+    <div class="method-desc">
+        Comprovante de venda realizada por um comissionado. Armazena a data da transação (<code>LocalDate</code>) e o valor monetário total (<code>double</code>).
+    </div>
+</div>
+
+<div class="method-card">
+    <div class="method-signature">public class TaxaServico implements Serializable</div>
+    <div class="method-desc">
+        Registro de cobrança de serviço avulso prestado pelo sindicato a um membro filiado. Armazena a data da prestação (<code>LocalDate</code>) e o valor do encargo (<code>double</code>).
+    </div>
+</div>
+
+<h2>4.6. Tratamento de Exceções</h2>
+<p>
+    O sistema utiliza exceções checadas e a classe customizada <code>EmpregadoNaoExisteException</code> para sinalizar divergências de negócio com exatidão semiótica exigida pelos testes:
+</p>
+<ul>
+    <li><code>"Empregado nao existe."</code>: Lançada quando um ID inexistente é referenciado.</li>
+    <li><code>"Identificacao do empregado nao pode ser nula."</code>: Para IDs nulos ou strings vazias.</li>
+    <li><code>"Empregado nao eh horista."</code> / <code>"Empregado nao eh comissionado."</code> / <code>"Empregado nao eh sindicalizado."</code>: Para operações incompatíveis com a categoria do empregado.</li>
+    <li><code>"Data invalida."</code> / <code>"Data inicial nao pode ser posterior aa data final."</code>: Para inconsistências de calendário ou intervalos temporais inválidos.</li>
+    <li><code>"Nao pode dar comandos depois de encerrarSistema."</code>: Proteção contra chamadas pós-fechamento do sistema.</li>
+    <li><code>"Nao ha comando a desfazer."</code> / <code>"Nao ha comando a refazer."</code>: Para pilhas de histórico vazias.</li>
+</ul>
+
+<div class="page-break"></div>
+
+<!-- SEÇÃO 5 e 6 -->
+<h1>5. Ciclo de Vida de Execução, Undo/Redo e Persistência</h1>
+<p>
+    O ciclo de vida do WePayU em uma sessão padrão ocorre conforme o fluxo abaixo:
+</p>
+<ol>
+    <li><strong>Inicialização:</strong> Ao instanciar <code>Facade</code>, o método <code>Sistema.carregar()</code> recupera o arquivo <code>sistema.dat</code>. Caso não exista, instancia um novo <code>Sistema</code> com coleções vazias.</li>
+    <li><strong>Execução de Comandos:</strong> A cada comando modificador, um snapshot do estado em memória é empilhado na <code>undoStack</code> e a <code>redoStack</code> é limpa. Se houver falha de validação, ocorre rollback automático.</li>
+    <li><strong>Consultas:</strong> Consultas a atributos, horas, vendas, taxas e totalização da folha não afetam as pilhas de histórico.</li>
+    <li><strong>Desfazer / Refazer:</strong> Comandos <code>undo()</code> e <code>redo()</code> transferem os snapshots entre as pilhas e substituem os dados em memória sem perda de integridade.</li>
+    <li><strong>Encerramento:</strong> O comando <code>encerrarSistema()</code> bloqueia a aceitação de novos comandos e persiste os dados consolidados no arquivo binário <code>sistema.dat</code>.</li>
+</ol>
+
+<h1>6. Guia de Compilação e Execução dos Testes</h1>
+
+<h2>6.1. Compilação do Código Fonte</h2>
+<p>No terminal PowerShell na raiz do projeto:</p>
+<pre><code>javac -parameters -cp "lib/easyaccept.jar;src" -d out (Get-ChildItem -Recurse -Filter *.java src | ForEach-Object { $_.FullName })</code></pre>
+
+<h2>6.2. Execução da Suíte de Testes EasyAccept</h2>
+<pre><code>java -cp "out;lib/easyaccept.jar" Main</code></pre>
+
+<div class="alert alert-info">
+    <strong>Resultado Verificado:</strong> Todos os 590 testes formais do EasyAccept das User Stories US1 a US8 executam com <strong>100% de sucesso (0 erros, 0 falhas)</strong>.
+</div>
+
+<p style="text-align: center; margin-top: 50px; color: #a0aec0; font-size: 9pt;">
+    WePayU — Sistema de Folha de Pagamento &bull; Documentação Técnica Oficial &bull; 2026
+</p>
+
+</body>
+</html>

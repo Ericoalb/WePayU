@@ -1,0 +1,6 @@
+package br.ufal.ic.p2.wepayu.exceptions;
+
+public class NaoHaComandoARefazerException extends WePayUException {
+    public NaoHaComandoARefazerException() { super("Nao ha comando a refazer."); }
+}
+

@@ -4,24 +4,29 @@ Projeto desenvolvido para a disciplina de **Programação 2 (P2)** da **Universi
 
 ---
 
-## Documentação Completa do Sistema
+## Documentação Técnica do Sistema
 
-A documentação técnica detalhada de todas as classes, métodos, arquitetura, padrões de projeto e regras de negócio está disponível no documento oficial em PDF:
+A documentação técnica completa da arquitetura, classes, métodos e regras de negócio está disponível no documento oficial em PDF:
 
-📄 **[Documentacao_WePayU.pdf](Documentacao_WePayU.pdf)** *(ou via versão HTML em `documentacao.html`)*
+📄 **[Documentacao_WePayU.pdf](Documentacao_WePayU.pdf)** *(versão HTML em `documentacao.html`)*
 
-O documento abrange:
-1. **Visão Geral do Sistema**: Categorias de empregados (Horistas, Assalariados, Comissionados), métodos de pagamento e sindicato.
-2. **Arquitetura e Padrões de Projeto**: Padrão *Façade*, *Memento* com snapshots em memória para Undo/Redo e modelo orientado a objetos.
-3. **Mapeamento das User Stories**: Detalhamento das histórias US1 a US8.
-4. **Documentação Detalhada de Classes e Métodos**:
-   - `Facade.java`: Todos os métodos da fachada documentados com assinaturas, parâmetros, retornos e exceções.
-   - `Sistema.java`: Núcleo da lógica de negócio e controle transacional.
-   - `FolhaDePagamento.java`: Motor de cálculo financeiro e formatação tabular.
-   - Pacote `models`: `Empregado`, `EmpregadoHorista`, `EmpregadoAssalariado`, `EmpregadoComissionado`, `point_card_pay_u`, `ResultadoVenda`, `TaxaServico`.
-   - Exceções e validações do sistema.
-5. **Ciclo de Vida, Undo/Redo e Persistência**.
-6. **Guia de Compilação e Execução dos Testes**.
+### Destaques da Arquitetura Refatorada:
+1. **Pacotes Especializados**:
+   - `br.ufal.ic.p2.wepayu`: Camada de Fachada (`Facade.java`).
+   - `br.ufal.ic.p2.wepayu.core`: Inteligência do sistema (`Sistema.java` e `FolhaDePagamento.java`).
+   - `br.ufal.ic.p2.wepayu.models`: Entidades ricas de domínio (`Empregado`, `EmpregadoHorista`, `EmpregadoAssalariado`, `EmpregadoComissionado`, `MetodoPagamento`, `FiliacaoSindical`, `CartaoPonto`, etc.).
+   - `br.ufal.ic.p2.wepayu.exceptions`: Pacote com 45 classes de exceções específicas para cada caso de erro do sistema (zero exceções genéricas).
+2. **Orientação a Objetos e Polimorfismo Dinâmico**:
+   - Todo o comportamento de cálculo e regras de domínio é despachado via polimorfismo e métodos dinâmicos.
+3. **Modelos Ricos e Encapsulados**:
+   - Classes dedicadas para método de pagamento (`MetodoPagamentoEmMaos`, `MetodoPagamentoCorreios`, `MetodoPagamentoBanco`).
+   - Classe dedicada para filiação sindical (`FiliacaoSindical`).
+   - Salário e comissão armazenados como `double`.
+   - Getters de coleções protegidos com listas imutáveis (`Collections.unmodifiableList`).
+4. **Classe `CartaoPonto`**:
+   - Substituição total da classe provisória anterior, mantendo consistência com o padrão de nomenclatura do projeto.
+5. **Transacionalidade e Memento**:
+   - Histórico completo de `undo()` e `redo()` com snapshots em memória e rollback automático diante de falhas.
 
 ---
 

@@ -1,5 +1,7 @@
 package br.ufal.ic.p2.wepayu;
 
+import br.ufal.ic.p2.wepayu.core.Sistema;
+
 public class Facade {
     private Sistema sistema = Sistema.carregar();
 
@@ -15,60 +17,64 @@ public class Facade {
         return sistema.criarEmpregado(nome, endereco, tipo, salario, comissao);
     }
 
-    public String getAtributoEmpregado(String emp, String atributo) throws Exception {
-        return sistema.getAtributoEmpregado(emp, atributo);
+    public String getAtributoEmpregado(String idEmpregado, String atributo) throws Exception {
+        return sistema.getAtributoEmpregado(idEmpregado, atributo);
     }
 
     public String getEmpregadoPorNome(String nome, int indice) throws Exception {
         return sistema.getEmpregadoPorNome(nome, indice);
     }
 
-    public void removerEmpregado(String emp) throws Exception {
-        sistema.removerEmpregado(emp);
+    public void removerEmpregado(String idEmpregado) throws Exception {
+        sistema.removerEmpregado(idEmpregado);
     }
 
-    public void lancaCartao(String emp, String data, String horas) throws Exception {
-        sistema.lancaCartao(emp, data, horas);
+    public void lancaCartao(String idEmpregado, String data, String horas) throws Exception {
+        sistema.lancaCartao(idEmpregado, data, horas);
     }
 
-    public String getHorasNormaisTrabalhadas(String emp, String dataInicial, String dataFinal) throws Exception {
-        return sistema.getHorasNormaisTrabalhadas(emp, dataInicial, dataFinal);
+    public String getHorasNormaisTrabalhadas(String idEmpregado, String dataInicial, String dataFinal) throws Exception {
+        return sistema.getHorasNormaisTrabalhadas(idEmpregado, dataInicial, dataFinal);
     }
 
-    public String getHorasExtrasTrabalhadas(String emp, String dataInicial, String dataFinal) throws Exception {
-        return sistema.getHorasExtrasTrabalhadas(emp, dataInicial, dataFinal);
+    public String getHorasExtrasTrabalhadas(String idEmpregado, String dataInicial, String dataFinal) throws Exception {
+        return sistema.getHorasExtrasTrabalhadas(idEmpregado, dataInicial, dataFinal);
     }
 
-    public void lancaVenda(String emp, String data, String valor) throws Exception {
-        sistema.lancaVenda(emp, data, valor);
+    public void lancaVenda(String idEmpregado, String data, String valor) throws Exception {
+        sistema.lancaVenda(idEmpregado, data, valor);
     }
 
-    public String getVendasRealizadas(String emp, String dataInicial, String dataFinal) throws Exception {
-        return sistema.getVendasRealizadas(emp, dataInicial, dataFinal);
+    public String getVendasRealizadas(String idEmpregado, String dataInicial, String dataFinal) throws Exception {
+        return sistema.getVendasRealizadas(idEmpregado, dataInicial, dataFinal);
     }
 
-    public void alteraEmpregado(String emp, String atributo, String valor) throws Exception {
-        sistema.alteraEmpregado(emp, atributo, valor);
+    public void alteraEmpregado(String idEmpregado, String atributo, String valor) throws Exception {
+        sistema.alteraEmpregado(idEmpregado, atributo, valor);
     }
 
-    public void alteraEmpregado(String emp, String atributo, String valor, String arg4) throws Exception {
-        sistema.alteraEmpregado(emp, atributo, valor, arg4);
+    public void alteraEmpregado(String idEmpregado, String atributo, String valor, String arg4) throws Exception {
+        sistema.alteraEmpregado(idEmpregado, atributo, valor, arg4);
     }
 
-    public void alteraEmpregado(String emp, String atributo, String valor, String idSindicato, String taxaSindical) throws Exception {
-        sistema.alteraEmpregado(emp, atributo, valor, idSindicato, taxaSindical);
+    public void alteraEmpregado(String idEmpregado, String atributo, String valor, String idSindicato, String taxaSindical) throws Exception {
+        sistema.alteraEmpregado(idEmpregado, atributo, valor, idSindicato, taxaSindical);
     }
 
-    public void alteraEmpregado(String emp, String atributo, String valor, String banco, String agencia, String contaCorrente) throws Exception {
-        sistema.alteraEmpregado(emp, atributo, valor, banco, agencia, contaCorrente);
+    public void alteraEmpregado(String idEmpregado, String atributo, String valor, String banco, String agencia, String contaCorrente) throws Exception {
+        sistema.alteraEmpregado(idEmpregado, atributo, valor, banco, agencia, contaCorrente);
     }
 
     public void lancaTaxaServico(String membro, String data, String valor) throws Exception {
         sistema.lancaTaxaServico(membro, data, valor);
     }
 
-    public String getTaxasServico(String emp, String dataInicial, String dataFinal) throws Exception {
-        return sistema.getTaxasServico(emp, dataInicial, dataFinal);
+    public String getTaxasServico(String idEmpregado, String dataInicial, String dataFinal) throws Exception {
+        return sistema.getTaxasServico(idEmpregado, dataInicial, dataFinal);
+    }
+
+    public void criarAgendaDePagamentos(String descricao) throws Exception {
+        sistema.criarAgendaDePagamentos(descricao);
     }
 
     public String totalFolha(String data) throws Exception {

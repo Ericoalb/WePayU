@@ -1,14 +1,23 @@
 package br.ufal.ic.p2.wepayu.models;
 
+import br.ufal.ic.p2.wepayu.exceptions.DataInvalidaException;
+import br.ufal.ic.p2.wepayu.exceptions.HorasDevemSerPositivasException;
 import java.io.Serializable;
 import java.time.LocalDate;
 
-public class point_card_pay_u implements Serializable {
+public class CartaoPonto implements Serializable {
     private static final long serialVersionUID = 1L;
+
     private LocalDate data;
     private double horas;
 
-    public point_card_pay_u(LocalDate data, double horas) {
+    public CartaoPonto(LocalDate data, double horas) throws Exception {
+        if (data == null) {
+            throw new DataInvalidaException();
+        }
+        if (horas <= 0) {
+            throw new HorasDevemSerPositivasException();
+        }
         this.data = data;
         this.horas = horas;
     }

@@ -1,14 +1,23 @@
 package br.ufal.ic.p2.wepayu.models;
 
+import br.ufal.ic.p2.wepayu.exceptions.DataInvalidaException;
+import br.ufal.ic.p2.wepayu.exceptions.ValorDeveSerPositivoException;
 import java.io.Serializable;
 import java.time.LocalDate;
 
 public class TaxaServico implements Serializable {
     private static final long serialVersionUID = 1L;
+
     private LocalDate data;
     private double valor;
 
-    public TaxaServico(LocalDate data, double valor) {
+    public TaxaServico(LocalDate data, double valor) throws Exception {
+        if (data == null) {
+            throw new DataInvalidaException();
+        }
+        if (valor <= 0) {
+            throw new ValorDeveSerPositivoException();
+        }
         this.data = data;
         this.valor = valor;
     }
